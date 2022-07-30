@@ -29,6 +29,11 @@ namespace Keepr.Services
             return profile;
         }
 
+        internal Profile GetProfile(string id)
+        {
+            return _repo.GetById(id);
+        }
+
         internal Account Edit(Account editData, string userEmail)
         {
             Account original = GetProfileByEmail(userEmail);

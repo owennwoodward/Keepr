@@ -7,14 +7,14 @@ namespace Keepr.Controllers
 {
 
     [ApiController]
-    [Route("api[controller]")]
-    public class ProfilesController
+    [Route("api/[controller]")]
+    public class ProfilesController : ControllerBase
     {
-        private readonly AccountService _accountserv;
+        private readonly AccountService _accountService;
 
-        public ProfilesController(AccountService accountserv)
+        public ProfilesController(AccountService accountService)
         {
-            _accountserv = accountserv;
+            _accountService = accountService;
         }
 
         [HttpGet("{id}")]
@@ -22,13 +22,13 @@ namespace Keepr.Controllers
         {
             try
             {
-                Profile profile = _accountserv.GetProfile(id);
+                Profile profile = _accountService.GetProfile(id);
                 return Ok(profile);
             }
-            catch (Exception)
+            catch (Exception error)
             {
 
-                return BadRe
+                return BadRequest(error);
             }
         }
     }

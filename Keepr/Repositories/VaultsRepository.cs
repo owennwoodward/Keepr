@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Dapper;
@@ -64,6 +65,12 @@ namespace Keepr.Repositories
             WHERE id = @Id
             ";
             _db.Execute(sql, original);
+        }
+
+        internal List<Vault> GetVaults(string id)
+        {
+            string sql = "SELECT * FROM vaults WHERE vaults.creatorId = @id;";
+            return _db.Query<Vault>(sql, new { id }).ToList();
         }
     }
 }

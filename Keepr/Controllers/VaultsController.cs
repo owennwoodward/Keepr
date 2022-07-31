@@ -104,9 +104,17 @@ namespace Keepr.Controllers
 
         public async Task<ActionResult<Vault>> Delete(int id)
         {
-            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-            Vault deletedVault = _vs.Delete(id, userInfo.Id);
-            return Ok(deletedVault);
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                Vault deletedVault = _vs.Delete(id, userInfo.Id);
+                return Ok(deletedVault);
+            }
+            catch (Exception error)
+            {
+
+                return BadRequest(error.Message);
+            }
         }
 
 

@@ -62,6 +62,22 @@ namespace Keepr.Repositories
             }, new { keepId }).FirstOrDefault();
         }
 
+        internal List<Keep> GetKeeps(string id)
+        {
+            string sql = @"
+            SELECT k.*, a.*, ke FROM keeps k
+            JOIN keeps ke ON ke.id = k.keepsId
+            JOIN accounts a ON a.id = k.creatorId
+            WHERE creatorId = @CreatorId";
+            return _db.Query<Keep, Profile, Keep>(sql, (keep, prof) =>
+            {
+
+                keep.Creator = prof;
+                return keep;
+
+            }, new { id }).ToList();
+        }
+
         internal void Delete(int id)
         {
             string sql = "DELETE FROM keeps WHERE id = @id LIMIT 1";

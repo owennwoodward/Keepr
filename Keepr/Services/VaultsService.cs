@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Keepr.Models;
 
 using Keepr.Repositories;
@@ -40,7 +41,7 @@ namespace Keepr.Services
             Vault original = _vrepo.GetById(vaultData.Id);
             if (vaultData.CreatorId != original.CreatorId)
             {
-                throw new Exception("Not your Keep");
+                throw new Exception("Not your Vault to Edit");
             }
             original.Name = vaultData.Name ?? original.Name;
             original.Description = vaultData.Description ?? original.Description;
@@ -55,10 +56,16 @@ namespace Keepr.Services
             Vault original = _vrepo.GetById(id);
             if (userId != original.CreatorId)
             {
-                throw new Exception("Not your Keep to Delete");
+                throw new Exception("Not your Vault to Delete");
             }
+
             _vrepo.Delete(id);
             return original;
+        }
+
+        internal List<Vault> GetVaults(string id)
+        {
+            return _vrepo.GetVaults(id);
         }
     }
 }

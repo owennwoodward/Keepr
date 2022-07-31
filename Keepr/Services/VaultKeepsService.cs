@@ -41,9 +41,13 @@ namespace Keepr.Services
             return _repo.GetKeeps(id);
         }
 
-        internal void Delete(int id)
+        internal void Delete(int id, string userId)
         {
-            Get(id);
+            VaultKeep found = Get(id);
+            if (found.CreatorId != userId)
+            {
+                throw new Exception("Not your VaultKeep");
+            }
             _repo.Delete(id);
         }
 
@@ -54,6 +58,7 @@ namespace Keepr.Services
             {
                 throw new Exception("No such Id");
             }
+
             return found;
         }
     }

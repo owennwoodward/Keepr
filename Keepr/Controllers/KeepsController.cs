@@ -101,9 +101,17 @@ namespace Keepr.Controllers
 
         public async Task<ActionResult<Keep>> Delete(int id)
         {
-            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-            Keep deletedKeep = _ks.Delete(id, userInfo.Id);
-            return Ok(deletedKeep);
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                Keep deletedKeep = _ks.Delete(id, userInfo.Id);
+                return Ok(deletedKeep);
+            }
+            catch (Exception error)
+            {
+
+                return BadRequest(error.Message);
+            }
         }
 
 

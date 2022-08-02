@@ -1,9 +1,9 @@
 <template>
-    <div class="container-fluid pb-5 ms-4">
-        <div class="row">
-            <div class="col d-flex mt-4 ms-4">
-                <img :src="profile.picture" class="">
-                <div>
+    <div class="container-fluid pb-5 ms-4 ">
+        <div class="row ">
+            <div class="col-4 mt-4 ms-4">
+                <img :src="profile.picture" class="rounded-pill">
+                <div class="col-8">
                     <h1 class="pt-4 ms-5">{{ profile.name }}</h1>
                     <h2 class="ms-5">Vaults: {{ vaults.length }}</h2>
                     <h2 class="ms-5">Keeps: {{ keeps.length }}</h2>
@@ -13,11 +13,11 @@
         </div>
     </div>
     <div class="container-fluid ms-4">
-        <div class="row ms-4">
-            <h2 class="">Vaults <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
+        <div class="row ms-4 pb-4">
+            <h1 class="">Vaults <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
                     @click="getVaultForm">
-                </span></h2>
-            <div class="col-4" v-for="v in vaults" :key="v.id">
+                </span></h1>
+            <div class="col-3" v-for="v in vaults" :key="v.id">
                 <Vault :vault="v" />
             </div>
 
@@ -25,10 +25,10 @@
 
     </div>
 
-    <div class="container-fluid p-4 ms-5 masonry-frame">
-        <h2 class="">Keeps <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
-                @click="getKeepForm"></span></h2>
-        <div v-for="k in keeps" :key="k.id">
+    <div class="container-fluid masonry-frame">
+        <h1 class="ps-5 ms-3">Keeps <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
+                @click="getKeepForm"></span></h1>
+        <div class="pt-5" v-for="k in keeps" :key="k.id">
             <Keep :keep="k" />
         </div>
     </div>
@@ -91,33 +91,11 @@ export default {
 
 
 <style lang="scss" scoped>
-body {
-    margin: 0;
-    padding: 1rem;
-}
-
 .masonry-frame {
-    columns: 6 200px;
-    column-gap: 2rem;
+    columns: 3;
 
     div {
-        width: 150px;
-        color: white;
-        margin: 0 1rem 1rem 0;
-        display: inline-block;
-        width: 100%;
-        text-align: center;
-        font-family: system-ui;
-        font-weight: 900;
-        font-size: 2rem;
-    }
-
-    @for $i from 1 through 36 {
-        div:nth-child(#{$i}) {
-            $h: (random(400) + 100)+px;
-            height: $h;
-            line-height: $h;
-        }
+        break-inside: avoid;
     }
 }
 </style>

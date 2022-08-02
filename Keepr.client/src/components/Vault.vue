@@ -1,18 +1,17 @@
 <template>
 
 
+    <div class="row ">
 
-    <div class="col-12 p-1">
-        <!-- <div data-bs-target="#vault-modal" data-bs-toggle="modal" -->
-        <!-- class="m-4 elevation-2 d-flex justify-content-between selectable"> -->
-        <div class="overview " :style="{ 'background-image': `url(${vault.img})` }">
-            <div class="d-flex justify-content-between ">
-                <!-- <h3 class="p-3 text-light">{{ vault.name }}</h3> <img class=" profile-pic p-2 selectable"
-                        :src="keep.creator?.picture" /> -->
+        <div class="col-12 p-1  ">
+            <div class="overview selectable" :style="{ 'background-image': `url(${vault.img})` }"
+                @click="goToVaultPage">
+
+                <h3 class="text-light ">{{ vault.name }}</h3>
+
             </div>
         </div>
     </div>
-    <!-- </div> -->
 
 </template>
 
@@ -32,8 +31,17 @@ export default {
         }
     },
     setup(props) {
-
+        const router = useRouter()
         return {
+            router,
+            goToVaultPage() {
+                router.push({
+                    name: 'Vault',
+                    params: {
+                        vaultId: props.vault.id
+                    }
+                })
+            },
         }
     }
 }

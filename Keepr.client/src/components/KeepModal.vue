@@ -20,16 +20,16 @@
                     <div class=" row justify-content-between">
 
                         <div class="col-4">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    VAULT
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
+                            <div>
+                                <form class="vault-control">
+                                    <button type="submit" class="btn btn-primary p-2 "
+                                        @click.prevent="addToVault"><b>Add to Vault</b></button>
+                                    <select class="standard-length">
+                                        <option class="" v-for="v in vault" :key="v.id" :value="v.id">
+                                            {{ v.name }}
+                                        </option>
+                                    </select>
+                                </form>
                             </div>
                         </div>
                         <div class="col-2 btn btn-primary">
@@ -57,6 +57,7 @@ import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import { keepsService } from '../services/KeepsService'
+import { vaultKeepsService } from '../services/VaultKeepsService'
 
 export default {
     setup(props) {
@@ -88,10 +89,15 @@ export default {
                     Pop.toast(error.message, 'error')
                 }
             },
+
+            async addToVault(vaultId) {
+                await vaultKeepsService.addToVault(vaultId)
+            },
             keep: computed(() => AppState.activeKeep),
+            vaults: computed(() => AppState.vaults),
             vault: computed(() => AppState.profileVaults),
             profile: computed(() => AppState.profile),
-            account: computed(() => AppState.account),
+            account: computed(() => AppState.account)
         }
     }
 }
@@ -102,5 +108,16 @@ export default {
 .keep-size {
     width: 50vh;
     height: 50vh;
+}
+
+.standard-length {
+    width: 7rem;
+    margin-left: 1rem;
+    border-radius: 4px;
+}
+
+.vault-control {
+    display: flex;
+    align-items: center;
 }
 </style>

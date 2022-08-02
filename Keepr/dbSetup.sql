@@ -14,6 +14,7 @@ CREATE TABLE
         name VARCHAR(255) NOT NULL,
         description VARCHAR(255) NOT NULL,
         isPrivate TINYINT NOT NULL DEFAULT 0,
+        img VARCHAR(255) NOT NULL,
         creatorId VARCHAR(255) NOT NULL,
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';

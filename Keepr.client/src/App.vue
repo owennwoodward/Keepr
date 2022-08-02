@@ -4,12 +4,10 @@
   </header>
   <main>
     <router-view />
+    <KeepModal />
+    <VaultForm />
+    <KeepForm />
   </main>
-  <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
-    </div>
-  </footer>
 </template>
 
 <script>
@@ -25,6 +23,14 @@ export default {
 }
 </script>
 <style lang="scss">
-@import "./assets/scss/main.scss";
+.profile-pic {
 
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+
+@import "./assets/scss/main.scss";
 </style>

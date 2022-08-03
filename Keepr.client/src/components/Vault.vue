@@ -6,8 +6,8 @@
         <div class="col-12 p-1">
             <div class="overview selectable" :style="{ 'background-image': `url(${vault.img})` }"
                 @click="goToVaultPage">
-
                 <h3 class="text-light p-3">{{ vault.name }}</h3>
+
 
             </div>
         </div>

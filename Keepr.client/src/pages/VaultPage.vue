@@ -2,7 +2,7 @@
     <div class="container pt-5 mt-5">
         <div class="row ">
             <div class="col-10">
-                <!-- <h1>{{ vault.name }}</h1> -->
+                <h1>{{ vault.name }}</h1>
 
             </div>
             <button class="col-2 btn btn-primary pt-2 mt-2 selectable" v-if="vault.creatorId == account.id"
@@ -10,19 +10,28 @@
                 <h5>Delete Vault</h5>
             </button>
         </div>
-        <h4 class="pt-3">Keeps: {{ keeps.length }}</h4>
-        <div class="" v-for="k in keeps" :key="k.id">
-            <Keep :keep="k" />
+        <h5 class="pt-3">Vault Keeps: {{ keeps.length }}</h5>
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
-                </div>
-                <div class="col-12" v-if="vault.creatorId == account.id">
-                    <button class="btn btn-primary" @click="removeKeepFromVault(k.vaultKeepId, k.id)">Remove from
-                        Vault</button>
-                </div>
-            </div>
 
+                <div class="col-4 ">
+                    <div class="" v-for="k in keeps" :key="k.id">
+                        <Keep :keep="k" />
+
+                    </div>
+                </div>
+
+            </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+            </div>
+            <div class="col-12" v-if="vault.creatorId == account.id">
+                <button class="btn btn-primary" @click="removeKeepFromVault(k.vaultKeepId, k.id)">Remove from
+                    Vault</button>
+            </div>
+        </div>
+
     </div>
 </template>
 

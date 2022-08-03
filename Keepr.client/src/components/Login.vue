@@ -2,7 +2,7 @@
   <span class="navbar-text">
     <button class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0" @click="login"
       v-if="!user.isAuthenticated">
-      Login
+      <h3 class="text-dark">Login</h3>
     </button>
 
     <div class="dropdown my-2 my-lg-0 card bg-dark p-2" v-else>

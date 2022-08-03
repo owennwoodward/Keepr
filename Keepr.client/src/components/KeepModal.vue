@@ -10,8 +10,8 @@
                     <img class="img-fluid keep-size" :src="keep.img">
                 </div>
                 <div class="col-6 text-center pt-5">
-                    <i class="mdi mdi-eye"> </i><span class="ms-2 me-2"> {{ keep.views }} </span>
-                    <i class="mdi mdi-book"> </i><span class="ms-2"> {{ keep.kept }} </span>
+                    <i class="mdi mdi-eye h3 green-color"> </i><span class="ms-2 me-2 h3 "> {{ keep.views }} </span>
+                    <i class="mdi mdi-book h3 green-color"> </i><span class="ms-2 h3"> {{ keep.kept }} </span>
                     <h1 class="pb-2 pt-5">{{ keep.name }}</h1>
                     <p class=" h3 pt-5">
                         {{ keep.description }}
@@ -19,11 +19,11 @@
                     </p>
                     <p class="border-bottom border-secondary pt-5"></p>
 
-                    <div class=" row justify-content-between align-items-baseline">
+                    <div class=" row justify-content-evenly ">
 
-                        <div class="col-5 pe-4 ">
+                        <div class="col-3 pe-4 ">
 
-                            <div class="me-2">
+                            <div class="me-2 mt-3">
                                 <div class="dropdown">
                                     <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
                                         Add to Vault
@@ -44,11 +44,11 @@
                                 </form> -->
                             </div>
                         </div>
-                        <div class="col-1 btn">
+                        <!-- v-if="activeKeep.creatorId == account.id" try to get this to work, to hide delete button if not urs. -->
+                        <div class="col-2 ms-3 btn">
                             <p class="mdi mdi-delete h1" v-if="keep.creatorId == account.id" @click="deleteKeep"></p>
                         </div>
-                        <!-- v-if="activeKeep.creatorId == account.id" try to get this to work, to hide delete button if not urs. -->
-                        <div class="col-6">
+                        <div class="col-6 mt-1">
                             <img class="profile-pic p-2 selectable rounded-pill" @click.stop="takeToProfile"
                                 :src="keep.creator?.picture" /><span class="h6">{{ keep.creator?.name }}</span>
 
@@ -94,7 +94,7 @@ export default {
                         await keepsService.deleteKeep()
                         Pop.toast('Keep deleted', 'success')
                     } else {
-                        Pop.toast('Be Careful Next Time', 'success')
+                        Pop.toast('Keep not deleted. Be Careful Next Time', 'success')
                         Modal.getOrCreateInstance(document.getElementById('keep-modal')).show()
                     }
                 } catch (error) {
@@ -141,4 +141,6 @@ export default {
     display: flex;
     align-items: center;
 }
+
+.green-color {}
 </style>

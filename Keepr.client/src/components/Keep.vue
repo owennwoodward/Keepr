@@ -16,6 +16,7 @@
 <script>
 import { Modal } from 'bootstrap'
 import { useRouter } from 'vue-router'
+import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
@@ -42,6 +43,7 @@ export default {
             async setActiveProfile() {
                 try {
                     await keepsService.setActive(props.keep.id)
+                    // AppState.activeKeep.views++
                     // await Modal.getOrCreateInstance(document.getElementById('keep-modal')).show()
                 } catch (error) {
                     logger.error(error)

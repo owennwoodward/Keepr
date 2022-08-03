@@ -45,6 +45,7 @@ import { useRoute } from 'vue-router'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import { vaultsService } from '../services/VaultsService'
+import { Modal } from 'bootstrap'
 
 export default {
     setup() {
@@ -55,6 +56,7 @@ export default {
             async vaultCreate() {
                 try {
                     await vaultsService.vaultCreate(editable.value)
+                    Modal.getOrCreateInstance(document.getElementById('createVault-modal')).hide();
                 } catch (error) {
                     logger.error(error)
                     Pop.toast(error.message, 'error')

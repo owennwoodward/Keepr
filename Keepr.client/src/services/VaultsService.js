@@ -1,24 +1,31 @@
 import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
+import Pop from "../utils/Pop"
 import { api } from "./AxiosService"
 import { profilesService } from "./ProfilesService"
 
 class VaultsService {
     async vaultCreate(vaultData) {
+        if (vaultData.isPrivate != true) {
+            vaultData.isPrivate = false
+        } else {
+            vaultData.isPrivate = true
+        }
         const res = await api.post('api/vaults', vaultData)
-        AppState.vaults.unshift(res.data)
+        AppState.vaults.push(res.data)
+        AppState.profileVaults.unshift(res.data)
 
     }
 
+
+    async getProfileVaults() {
+        const res = await api.get('account/vaults')
+        AppState.profileVaults = res.data
+    }
+
     async activeVault(vaultId) {
-        // const vault = await profilesService.getVaults(vaultId)
-        // const keeps = await profilesService.getKeeps(vaultId)
-        // AppState.activeVault = vault
-        // AppState.keeps = keeps
-        const vault = await this.getVaultId(vaultId)
-        const keeps = await this.getKeepFromVault(vaultId)
-        // AppState.activeVault = vault
-        AppState.keeps = keeps
+        const res = await api.get(`api/vaults/${vaultId}`)
+        AppState.activeVault = res.data
     }
 
     async getVaultId(vaultId) {
@@ -28,7 +35,7 @@ class VaultsService {
 
     async getKeepFromVault(vaultId) {
         const res = await api.get(`api/vaults/${vaultId}/keeps`)
-        AppState.activeKeep = res.data
+        AppState.keeps = res.data
     }
 
     async deleteVault(vaultId) {

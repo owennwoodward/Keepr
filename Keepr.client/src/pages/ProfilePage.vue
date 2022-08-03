@@ -1,23 +1,23 @@
 <template>
-    <div class="container-fluid pb-5 ms-4 ">
+    <div class="container-fluid pb-5 pt-5 ">
         <div class="row ">
-            <div class="col-4 mt-4 ms-4">
+            <div class="col-2 d-flex justify-content-center">
                 <img :src="profile.picture" class="rounded-pill">
-                <div class="col-8">
-                    <h1 class="pt-4 ms-5">{{ profile.name }}</h1>
-                    <h2 class="ms-5">Vaults: {{ vaults.length }}</h2>
-                    <h2 class="ms-5">Keeps: {{ keeps.length }}</h2>
+            </div>
+            <div class="col-10 ">
+                <h1 class="">{{ profile.name }}</h1>
+                <h2 class="">Vaults: {{ vaults.length }}</h2>
+                <h2 class="">Keeps: {{ keeps.length }}</h2>
 
-                </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid ms-4">
-        <div class="row ms-4 pb-4">
-            <h1 class="">Vaults <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
+    <div class="container-fluid ">
+        <div class="row ms-4 pb-4 pt-4 ">
+            <h1 class="ps-5 ">Vaults <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
                     @click="getVaultForm">
                 </span></h1>
-            <div class="col-3" v-for="v in vaults" :key="v.id">
+            <div class="col-3 ms-3 pt-5" v-for="v in vaults" :key="v.id">
                 <Vault :vault="v" />
             </div>
 
@@ -25,8 +25,9 @@
 
     </div>
 
-    <div class="container-fluid masonry-frame">
-        <h1 class="ps-5 ms-3">Keeps <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
+    <div class="container-fluid masonry-frame ">
+
+        <h1 class="ps-4 ms-5 ">Keeps <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
                 @click="getKeepForm"></span></h1>
         <div class="pt-5" v-for="k in keeps" :key="k.id">
             <Keep :keep="k" />
@@ -61,11 +62,14 @@ export default {
         });
         return {
             profile: computed(() => AppState.profile),
-            keeps: computed(() => AppState.keeps),
-            vaults: computed(() => AppState.vaults),
+            // keeps: computed(() => AppState.keeps),
+            keeps: computed(() => AppState.profileKeeps),
+            // vaults: computed(() => AppState.vaults),
+            vaults: computed(() => AppState.profileVaults),
             account: computed(() => AppState.account),
             async getVaultForm() {
                 try {
+
                     Modal.getOrCreateInstance(document.getElementById('createVault-modal')).show();
                 }
                 catch (error) {
@@ -85,7 +89,6 @@ export default {
             }
         };
     },
-    components: { Keep }
 }
 </script>
 

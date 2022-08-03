@@ -92,6 +92,8 @@ namespace Keepr.Repositories
             name = @Name,
             description = @Description,
             img = @Img,
+            views = @Views,
+            kept = @Kept,
             creatorId = @CreatorId
             WHERE id = @Id
             ";

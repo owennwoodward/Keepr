@@ -10,35 +10,47 @@
                     <img class="img-fluid keep-size" :src="keep.img">
                 </div>
                 <div class="col-6 text-center pt-5">
-                    <h1 class="pb-2 ">{{ keep.name }}</h1>
+                    <i class="mdi mdi-eye"> </i><span class="ms-2 me-2"> {{ keep.views }} </span>
+                    <i class="mdi mdi-book"> </i><span class="ms-2"> {{ keep.kept }} </span>
+                    <h1 class="pb-2 pt-5">{{ keep.name }}</h1>
                     <p class=" h3 pt-5">
                         {{ keep.description }}
 
                     </p>
                     <p class="border-bottom border-secondary pt-5"></p>
 
-                    <div class=" row justify-content-between">
+                    <div class=" row justify-content-between align-items-baseline">
 
-                        <div class="col-4">
-                            <div>
-                                <form class="vault-control">
-                                    <button type="submit" class="btn btn-primary p-2 "
-                                        @click.prevent="addToVault"><b>Add to Vault</b></button>
-                                    <select class="standard-length">
-                                        <option class="" v-for="v in vault" :key="v.id" :value="v.id">
-                                            {{ v.name }}
-                                        </option>
-                                    </select>
-                                </form>
+                        <div class="col-5 pe-4 ">
+
+                            <div class="me-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                        Add to Vault
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item action" v-for="v in vaults" :key="v.id"
+                                            @click="addKeepToVault(v.id)">{{ v.name }}</li>
+                                    </ul>
+                                </div>
+                                <!-- <form class="vault-control">
+                                    <button type="submit" class="btn btn-primary p-2 " @click.stop="addToVault"><b>Add
+                                            to
+                                            Vault</b> <select class="">
+                                            <option class="" v-for="v in vaults" :key="v.id" :value="v.id">
+                                                {{ v.name }}
+                                            </option>
+                                        </select></button>
+                                </form> -->
                             </div>
                         </div>
-                        <div class="col-2 btn btn-primary">
-                            <p class="mdi mdi-delete h1" @click="deleteKeep"></p>
+                        <div class="col-1 btn">
+                            <p class="mdi mdi-delete h1" v-if="keep.creatorId == account.id" @click="deleteKeep"></p>
                         </div>
                         <!-- v-if="activeKeep.creatorId == account.id" try to get this to work, to hide delete button if not urs. -->
-                        <div class="col-4">
+                        <div class="col-6">
                             <img class="profile-pic p-2 selectable rounded-pill" @click.stop="takeToProfile"
-                                :src="keep.creator?.picture" />
+                                :src="keep.creator?.picture" /><span class="h6">{{ keep.creator?.name }}</span>
 
                         </div>
                     </div>
@@ -58,11 +70,11 @@ import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import { keepsService } from '../services/KeepsService'
 import { vaultKeepsService } from '../services/VaultKeepsService'
+import { vaultsService } from '../services/VaultsService'
 
 export default {
     setup(props) {
         const router = useRouter()
-
         return {
             takeToProfile() {
                 Modal.getOrCreateInstance(document.getElementById('keep-modal')).hide()
@@ -82,7 +94,8 @@ export default {
                         await keepsService.deleteKeep()
                         Pop.toast('Keep deleted', 'success')
                     } else {
-                        Modal.getOrCreateInstance(document.getElementById('keep-modal')).toggle()
+                        Pop.toast('Be Careful Next Time', 'success')
+                        Modal.getOrCreateInstance(document.getElementById('keep-modal')).show()
                     }
                 } catch (error) {
                     logger.error(error)
@@ -90,12 +103,20 @@ export default {
                 }
             },
 
-            async addToVault(vaultId) {
-                await vaultKeepsService.addToVault(vaultId)
+            async addKeepToVault(id) {
+                try {
+                    let vaultKeep = { keepId: AppState.activeKeep.id, vaultId: id }
+                    await vaultKeepsService.addKeepToVault(vaultKeep)
+                    AppState.activeKeep.kept++
+                    Pop.toast('Keep added to vault', 'success')
+                } catch (error) {
+                    logger.error(error)
+                    Pop.toast(error.message, 'error')
+                }
             },
             keep: computed(() => AppState.activeKeep),
-            vaults: computed(() => AppState.vaults),
-            vault: computed(() => AppState.profileVaults),
+            vault: computed(() => AppState.activeVault),
+            vaults: computed(() => AppState.profileVaults),
             profile: computed(() => AppState.profile),
             account: computed(() => AppState.account)
         }

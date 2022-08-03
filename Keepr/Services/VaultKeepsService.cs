@@ -28,6 +28,8 @@ namespace Keepr.Services
             }
             VaultKeep newVaultKeep = _repo.Create(vaultKeepData);
             Keep keep = _krepo.GetById(newVaultKeep.KeepId);
+            keep.Kept++;
+            _krepo.Edit(keep);
             return newVaultKeep;
         }
 
@@ -49,6 +51,9 @@ namespace Keepr.Services
                 throw new Exception("Not your VaultKeep");
             }
             _repo.Delete(id);
+            Keep keep = _krepo.GetById(found.KeepId);
+            keep.Kept--;
+            _krepo.Edit(keep);
         }
 
         internal VaultKeep Get(int id)

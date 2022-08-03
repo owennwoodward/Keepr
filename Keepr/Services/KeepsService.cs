@@ -35,6 +35,8 @@ namespace Keepr.Services
             {
                 throw new Exception("Invalid Id");
             }
+            found.Views++;
+            _krepo.Edit(found);
             return found;
         }
 

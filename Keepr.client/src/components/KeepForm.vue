@@ -36,6 +36,7 @@ import { useRoute } from 'vue-router'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import { keepsService } from '../services/KeepsService'
+import { Modal } from 'bootstrap'
 
 export default {
     setup() {
@@ -46,6 +47,7 @@ export default {
             async keepCreate() {
                 try {
                     await keepsService.keepCreate(editable.value)
+                    Modal.getOrCreateInstance(document.getElementById('createKeep-modal')).hide();
                 } catch (error) {
                     logger.error(error)
                     Pop.toast(error.message, 'error')

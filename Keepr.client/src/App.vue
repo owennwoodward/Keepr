@@ -7,6 +7,7 @@
     <KeepModal />
     <VaultForm />
     <KeepForm />
+    <VaultKeepModal />
   </main>
 </template>
 

@@ -5,7 +5,9 @@ import { api } from "./AxiosService"
 class KeepsService {
     async getAll() {
         const res = await api.get('api/keeps')
+        logger.log(res.data)
         AppState.keeps = res.data
+
     }
     async setActive(id) {
         const res = await api.get('api/keeps/' + id)
@@ -14,7 +16,7 @@ class KeepsService {
 
     async keepCreate(keepData) {
         const res = await api.post('api/keeps', keepData)
-        AppState.vaults.unshift(res.data)
+        AppState.keeps.unshift(res.data)
 
     }
 

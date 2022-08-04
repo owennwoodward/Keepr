@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark navbar px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/logo.png" height="45" />
+        <img alt="logo" src="../assets/img/logo.png" height="45" title="Go to Home" />
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -18,7 +18,7 @@
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
-      <Login />
+      <Login title="Click to Expand" />
     </div>
   </nav>
 </template>

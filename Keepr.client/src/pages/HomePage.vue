@@ -3,7 +3,7 @@
 
     <div class="masonry-frame p-3">
       <div v-for="k in keeps" :key="k.id">
-        <Keep :keep="k" />
+        <Keep :keep="k" title="Go to this Keep" />
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .masonry-frame {
-  columns: 5 200px;
+  columns: 4 200px;
   column-gap: 1rem;
 
   div {

@@ -9,7 +9,7 @@
       <div class="dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false" id="authDropdown">
         <div class="mt-1" v-if="account.picture">
           <img :src="account.picture" alt="account photo" height="40" class="rounded" />
-          <span class="mx-2  h5 text-light lighten-30 ">{{ account.name }}</span>
+          <span class="mx-2  h5 text-light lighten-30 ">{{ account.name }} </span>
         </div>
       </div>
       <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
@@ -20,7 +20,7 @@
         </router-link>
         <div class="list-group-item list-group-item-action hoverable text-danger" @click="logout">
           <i class="mdi mdi-logout"></i>
-          logout
+          Logout
         </div>
         <router-link :to="{ name: 'Profile', params: { id: account.id } }">
           <div class="list-group-item list-group-item-action hoverable">

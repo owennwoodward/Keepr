@@ -14,10 +14,10 @@
     </div>
     <div class="container-fluid ">
         <div class="row ms-4 pb-4 pt-4 ">
-            <h1 class="ps-5 ">Vaults <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
-                    @click="getVaultForm">
+            <h1 class="ps-5 ">Vaults <span class=" mdi mdi-plus selectable " v-if="profile.id == account.id"
+                    title="Create New Vault" @click="getVaultForm">
                 </span></h1>
-            <div class="col-3 ms-3 pt-5" v-for="v in vaults" :key="v.id">
+            <div class="col-3 ms-3 pt-5" v-for="v in vaults" :key="v.id" title="Go to Vault">
                 <Vault :vault="v" />
             </div>
 
@@ -25,11 +25,11 @@
 
     </div>
 
-    <div class="container-fluid masonry-frame ">
 
-        <h1 class="ps-4 ms-5 ">Keeps <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
-                @click="getKeepForm"></span></h1>
-        <div class="pt-5" v-for="k in keeps" :key="k.id">
+    <h1 class="ps-4 ms-5 ">Keeps <span class="mdi mdi-plus selectable" v-if="profile.id == account.id"
+            title="Create New Keep" @click="getKeepForm"></span></h1>
+    <div class="masonry-frame ">
+        <div class="pt-5" v-for="k in keeps" :key="k.id" title="Go to Keep">
             <Keep :keep="k" />
         </div>
     </div>
@@ -95,7 +95,8 @@ export default {
 
 <style lang="scss" scoped>
 .masonry-frame {
-    columns: 3;
+    columns: 4 200px;
+    column-gap: 1rem;
 
     div {
         break-inside: avoid;

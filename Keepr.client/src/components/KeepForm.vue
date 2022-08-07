@@ -48,6 +48,7 @@ export default {
                 try {
                     await keepsService.keepCreate(editable.value)
                     Modal.getOrCreateInstance(document.getElementById('createKeep-modal')).hide();
+                    editable.value = {}
                 } catch (error) {
                     logger.error(error)
                     Pop.toast(error.message, 'error')

@@ -5,11 +5,11 @@
             <!-- <div class="container d-flex"> -->
             <div class="row">
 
-                <div class="col-6">
+                <div class="col-md-6">
 
                     <img class="img-fluid keep-size" :src="keep.img">
                 </div>
-                <div class="col-6 text-center pt-5">
+                <div class="col-md-6 text-center pt-5">
                     <i class="mdi mdi-eye h3 green-color"> </i><span class="ms-2 me-2 h5 "> {{ keep.views }} </span>
                     <i class="mdi mdi-book h3 green-color"> </i><span class="ms-2 h5"> {{ keep.kept }} </span>
                     <h1 class="pb-2 pt-5">{{ keep.name }}</h1>
@@ -21,7 +21,7 @@
 
                     <div class=" row justify-content-evenly ">
 
-                        <div class="col-3 pe-4 ">
+                        <div class="col-md-3 pe-4 ">
 
                             <div class="me-2 mt-3">
                                 <div class="dropdown">
@@ -49,7 +49,7 @@
                             <p class="mdi mdi-delete h1" v-if="keep.creatorId == account.id" @click="deleteKeep"
                                 title="Delete this Keep"></p>
                         </div>
-                        <div class="col-6 mt-1">
+                        <div class="col-md-6 mt-1">
                             <img class="profile-pic p-2 selectable rounded-pill" @click.stop="takeToProfile"
                                 title="Go to Profile" :src="keep.creator?.picture" /><span class="h6">{{
                                         keep.creator?.name
@@ -57,6 +57,7 @@
 
                         </div>
                     </div>
+
                 </div>
             </div>
         </template>
@@ -85,7 +86,7 @@ export default {
                     name: 'Profile',
                     params: {
                         id:
-                            AppState.activeKeep.creator?.id
+                            AppState.activeKeep.creator.id
                     }
                 })
             },
@@ -119,7 +120,7 @@ export default {
             },
             keep: computed(() => AppState.activeKeep),
             vault: computed(() => AppState.activeVault),
-            vaults: computed(() => AppState.profileVaults),
+            vaults: computed(() => AppState.myVaults),
             profile: computed(() => AppState.profile),
             account: computed(() => AppState.account)
         }

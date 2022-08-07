@@ -57,6 +57,7 @@ export default {
                 try {
                     await vaultsService.vaultCreate(editable.value)
                     Modal.getOrCreateInstance(document.getElementById('createVault-modal')).hide();
+                    editable.value = {}
                 } catch (error) {
                     logger.error(error)
                     Pop.toast(error.message, 'error')

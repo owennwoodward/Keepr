@@ -16,6 +16,18 @@ class ProfilesService {
         logger.log(res.data, 'vaults')
         AppState.profileVaults = res.data
     }
+
+    async getMyVaults(id) {
+        const res = await api.get('api/profiles/' + id + '/vaults')
+        logger.log(res.data, 'vaults')
+        AppState.myVaults = res.data
+    }
+
+    async getMyKeeps(id) {
+        const res = await api.get('api/profiles/' + id + '/keeps')
+        logger.log(res.data, 'vaults')
+        AppState.myKeeps = res.data
+    }
 }
 
 

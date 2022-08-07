@@ -5,16 +5,16 @@
 
             <img class="img-fluid masonry-pics" :src="keep.img" />
 
-            <div class=" row bottom-left text-light justify-content-between">
+            <div class=" row  text-light keep-text">
 
-                <div class="col-10">
+                <div class="col-12 d-flex justify-content-between">
 
-                    <h3 class="p-3 h4">{{ keep.name }}</h3>
-                </div>
-                <div class="col-2">
-
+                    <h3 class="p-3 h4 name">{{ keep.name }}</h3>
                     <img class=" profile-pic p-2 selectable" @click.stop="takeToProfile" :src="keep.creator?.picture" />
                 </div>
+
+                <!-- <div class="col-2 d-flex justify-content-end">
+                </div> -->
             </div>
         </div>
     </div>
@@ -83,7 +83,17 @@ export default {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    // margin-left: auto;
 
+}
+
+.name {
+    text-shadow: 2px 2px black;
+}
+
+.keep-text {
+    position: relative;
+    bottom: 65px;
 }
 
 .masonry-pics {

@@ -7,7 +7,7 @@
             <div class="col-10 ">
                 <h1 class="">{{ profile.name }}</h1>
                 <h2 class="">Vaults: {{ vaults.length }}</h2>
-                <h2 class="">Keeps: {{ keeps.length }}</h2>
+                <h3 class="">Keeps: {{ keeps.length }}</h3>
 
             </div>
         </div>
@@ -20,6 +20,7 @@
             <div class="col-3 ms-3 pt-5" v-for="v in vaults" :key="v.id" title="Go to Vault">
                 <Vault :vault="v" />
             </div>
+
 
         </div>
 
@@ -37,7 +38,7 @@
 
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { profilesService } from '../services/ProfilesService'
 import { logger } from '../utils/Logger'
@@ -49,22 +50,24 @@ import { Modal } from 'bootstrap'
 export default {
     setup() {
         const route = useRoute();
-        onMounted(async () => {
-            try {
-                await profilesService.getMyProfile(route.params.id);
-                await profilesService.getKeeps(route.params.id);
-                await profilesService.getVaults(route.params.id);
-            }
-            catch (error) {
-                logger.error(error);
-                Pop.toast(error.message, "error");
+        watchEffect(async () => {
+            if (route.params.id) {
+                try {
+                    await profilesService.getMyProfile(route.params.id);
+                    await profilesService.getKeeps(route.params.id);
+                    await profilesService.getVaults(route.params.id);
+                }
+                catch (error) {
+                    logger.error(error);
+                    Pop.toast(error.message, "error");
+                }
             }
         });
         return {
             profile: computed(() => AppState.profile),
             // keeps: computed(() => AppState.keeps),
             keeps: computed(() => AppState.profileKeeps),
-            // vaults: computed(() => AppState.vaults),
+            allvaults: computed(() => AppState.vaults),
             vaults: computed(() => AppState.profileVaults),
             account: computed(() => AppState.account),
             async getVaultForm() {

@@ -6,8 +6,8 @@ import { profilesService } from "./ProfilesService"
 
 class VaultsService {
     async vaultCreate(vaultData) {
-        if (vaultData.isPrivate != true) {
-            vaultData.isPrivate = false
+        if (vaultData.isPrivate == true) {
+            vaultData.isPrivate = true
         } else {
             vaultData.isPrivate = true
         }
